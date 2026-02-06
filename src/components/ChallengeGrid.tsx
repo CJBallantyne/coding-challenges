@@ -12,18 +12,20 @@ export const ChallengeGrid = () => {
     : [];
 
   return (
-    <>
+    <div className="p-4">
       <input
+        className="mb-4"
         placeholder="Search..."
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      <div className="grid grid-cols-auto gap-4 p-4">
+      <div className="grid grid-cols-auto gap-4">
         {filtered.map((challenge) => (
           <ChallengeCard key={challenge.name} challenge={challenge} />
         ))}
+        {filtered.length === 0 && <p>No challenges found.</p>}
       </div>
-    </>
+    </div>
   );
 };
 

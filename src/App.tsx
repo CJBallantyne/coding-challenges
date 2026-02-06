@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { challenges } from "./challenges/challengeRegistry";
-import { TopMenu } from "@components/TopMenu";
+import { TopNav } from "@components/TopNav";
 import { ChallengeGrid } from "@components/ChallengeGrid";
 
 const App = () => {
   return (
     <BrowserRouter>
       <div className="h-screen flex flex-col">
-        <TopMenu />
+        <TopNav />
 
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto p-4">
           <Routes>
             <Route path="/" element={<ChallengeGrid />} />
 

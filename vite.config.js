@@ -9,6 +9,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@components": path.resolve(__dirname, "src/components"),
+      "@challenges": path.resolve(__dirname, "src/challenges"),
+      "@hooks": path.resolve(__dirname, "src/hooks"),
     },
   },
 });

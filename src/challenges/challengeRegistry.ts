@@ -3,20 +3,39 @@ const challengeModules = import.meta.glob<{
   default: React.ComponentType;
 }>("/src/challenges/*/index.tsx", { eager: true });
 
-console.log("challengeModules", challengeModules);
-
 // load optional splash images
 const splashImages = import.meta.glob<string>("./challenges/*/splash.png", {
   eager: true,
   import: "default",
 });
 
+const details = import.meta.glob<{ default: ChallengeDetails }>(
+  "./challenges/*/details.json",
+  {
+    eager: true,
+    import: "default",
+  },
+);
+
 function extractName(path: string): string {
   return path.split("/")[3]; // src/challenges/<name>/index.tsx
 }
 
+function extractDetails(path: string): ChallengeDetails {
+  const detailsPath = path.replace("index.tsx", "details.json");
+  return details[detailsPath]?.default;
+}
+
+export type ChallengeDetails =
+  | {
+      description?: string;
+      [key: string]: any;
+    }
+  | undefined;
+
 export type Challenge = {
   name: string;
+  details: ChallengeDetails;
   Component: React.ComponentType;
   splash: string | undefined;
   route: string;
@@ -25,13 +44,13 @@ export type Challenge = {
 export const challenges: Challenge[] | null = Object.entries(challengeModules)
   .map(([path, module]) => {
     const name = extractName(path);
-    console.log("challenge path", path, "name", name);
+    const details = extractDetails(path);
 
     const splashPath = `./challenges/${name}/splash.png`;
-    console.log("splashPath", splashPath, splashImages[splashPath]);
 
     return {
       name,
+      details,
       Component: module.default,
       splash: splashImages[splashPath] || undefined,
       route: `/challenge/${name}`,

@@ -14,7 +14,9 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"]
+      "@components/*": ["src/components/*"],
+      "@challenges/*": ["src/challenges/*"],
+      "@hooks/*": ["src/hooks/*"]
     },
     "types": ["vite/client"]
   },
