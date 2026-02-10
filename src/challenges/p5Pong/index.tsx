@@ -3,7 +3,7 @@ import { P5Canvas } from "@p5-wrapper/react";
 import { Paddle } from "./paddle";
 import { Ball } from "./ball";
 
-const p5Test = () => {
+const p5Pong = () => {
   const sketch = (p: p5) => {
     let player1 = new Paddle(10, 200);
     let player2 = new Paddle(380, 200);
@@ -38,13 +38,7 @@ const p5Test = () => {
     };
   };
 
-  return (
-    <div>
-      <h2>p5 Test Challenge</h2>
-      <p>This is a test challenge using p5.js.</p>
-      <P5Canvas sketch={sketch} />
-    </div>
-  );
+  return <P5Canvas sketch={sketch} />;
 };
 
-export default p5Test;
+export default p5Pong;

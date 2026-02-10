@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { challenges } from "./challenges/challengeRegistry";
 import { TopNav } from "@components/TopNav";
 import { ChallengeGrid } from "@components/ChallengeGrid";
+import { ChallengePage } from "@components/ChallengePage";
 
 const App = () => {
   return (
@@ -14,8 +15,12 @@ const App = () => {
             <Route path="/" element={<ChallengeGrid />} />
 
             {challenges &&
-              challenges.map(({ route, Component }) => (
-                <Route key={route} path={route} element={<Component />} />
+              challenges.map((challenge) => (
+                <Route
+                  key={challenge.route}
+                  path={challenge.route}
+                  element={<ChallengePage challenge={challenge} />}
+                />
               ))}
           </Routes>
         </main>
