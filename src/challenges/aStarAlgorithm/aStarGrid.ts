@@ -17,7 +17,7 @@ export class AStarGrid {
   closedSet: Map<string, AStarNode>;
   pathSet: Map<string, AStarNode>;
 
-  constructor(numRows: number, numCols: number) {
+  constructor(numRows: number, numCols: number, isBlockedChance: number = 0) {
     this.nodes = [];
     this.openSet = new Map<string, AStarNode>();
     this.closedSet = new Map<string, AStarNode>();
@@ -27,7 +27,9 @@ export class AStarGrid {
     for (let i = 0; i < numCols; i++) {
       this.nodes.push([]);
       for (let j = 0; j < numRows; j++) {
-        this.nodes[i].push(new AStarNode(i, j, Math.random() < 0.3));
+        this.nodes[i].push(
+          new AStarNode(i, j, Math.random() < isBlockedChance),
+        );
       }
     }
 
@@ -93,7 +95,9 @@ export class AStarGrid {
       return SolvedState.FAILED_TO_SOLVE;
     }
 
+    const previousNode = this.currentNode;
     this.currentNode = this.getNextNode();
+    if (previousNode) this.moveNodeToClosedSet(previousNode);
 
     if (this.currentNode === null) {
       return SolvedState.FAILED_TO_SOLVE;
@@ -111,10 +115,11 @@ export class AStarGrid {
     neighbors.forEach((neighbor) => {
       const tempG =
         currentNodeGCost + this.getDistance(this.currentNode!, neighbor);
-      if (!neighbor.gCost || tempG < neighbor.gCost) {
+      if (neighbor.gCost === null || tempG < neighbor.gCost) {
         neighbor.gCost = tempG;
         neighbor.parent = this.currentNode;
-        neighbor.fCost = tempG + this.getDistance(neighbor, this.endNode);
+        neighbor.hCost = this.getDistance(neighbor, this.endNode);
+        neighbor.fCost = neighbor.gCost + neighbor.hCost;
         if (!this.openSet.has(neighbor.getCoordString())) {
           this.addNodeToOpenSet(neighbor);
         }

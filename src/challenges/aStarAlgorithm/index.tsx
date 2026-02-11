@@ -14,7 +14,7 @@ export const aStarAlgorithm = () => {
   const sketch = (p: p5) => {
     const numRows = 40;
     const numCols = 40;
-    const grid: AStarGrid = new AStarGrid(numRows, numCols);
+    const grid: AStarGrid = new AStarGrid(numRows, numCols, 0.25);
 
     p.setup = () => {
       p.createCanvas(numRows * NODE_SIZE, numCols * NODE_SIZE);
@@ -25,6 +25,7 @@ export const aStarAlgorithm = () => {
       const state = grid.attemptToSolve();
       if (state === SolvedState.SOLVED) {
         setSolvedState(SolvedState.SOLVED);
+        grid.endNode.drawPath(p);
         p.noLoop();
       }
       if (state === SolvedState.FAILED_TO_SOLVE) {
