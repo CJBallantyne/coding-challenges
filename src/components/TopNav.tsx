@@ -29,10 +29,10 @@ export function TopNav() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand onClick={navigateHome}>
+        <Navbar.Brand onClick={navigateHome} style={{ cursor: "pointer" }}>
           <img
             alt=""
-            src="/icon-updated.png"
+            src="/icon-updated-rounded.png"
             width="30"
             height="30"
             className="d-inline-block align-center pr-2"
