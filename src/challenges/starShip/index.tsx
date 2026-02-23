@@ -18,12 +18,12 @@ export const starSystem = () => {
   const sketch = (p: p5) => {
     p.setup = () => {
       p.createCanvas(CANVAS_SIZE, CANVAS_SIZE);
-      for (let i = 0; i < SYSTEM_SIZE / 2; i++) {
+      for (let i = 0; i < SYSTEM_SIZE / 4; i++) {
         stars.push(
           new Star(
             new p5.Vector(
-              p.map(p.noise(i), 0, 1, -SYSTEM_SIZE, SYSTEM_SIZE),
-              p.map(p.noise(i + 500), 0, 1, -SYSTEM_SIZE, SYSTEM_SIZE),
+              p.map(p.noise(i), 0, 1, 0, SYSTEM_SIZE),
+              p.map(p.noise(i + 500), 0, 1, 0, SYSTEM_SIZE),
             ),
             p.map(Math.random(), 0, 1, 5, 10),
           ),
