@@ -6,11 +6,15 @@ const FOLLOW_DISTANCE = 200;
 export class ViewPort {
   x: number;
   y: number;
+  width: number;
+  height: number;
   followDistance: number;
 
-  constructor(x: number, y: number) {
+  constructor(x: number, y: number, width: number, height: number) {
     this.x = x;
     this.y = y;
+    this.width = width;
+    this.height = height;
     this.followDistance = FOLLOW_DISTANCE;
   }
 
@@ -29,15 +33,10 @@ export class ViewPort {
 
   show(p: p5) {
     p.push();
-    // p.translate(-this.x, -this.y);
     p.fill(0, 0, 0, 0);
     p.stroke(255);
     p.strokeWeight(4);
-    p.square(
-      this.x - this.followDistance,
-      this.y - this.followDistance,
-      this.followDistance * 2,
-    );
+    p.square(10, 10, 100);
     p.pop();
   }
 }

@@ -23,17 +23,17 @@ export class Ship {
     this.angle = p5.Vector.fromAngle(0);
     this.height = height;
     this.width = width;
-    this.acceleration = 0.2;
-    this.maxSpeed = 10;
+    this.acceleration = 0.5;
+    this.maxSpeed = 20;
   }
 
   show(p: p5, viewPort: ViewPort) {
     this.angle = new p5.Vector(
-      p.mouseX - this.position.x,
-      p.mouseY - this.position.y,
+      p.mouseX + viewPort.x - viewPort.width / 2 - this.position.x,
+      p.mouseY + viewPort.y - viewPort.height / 2 - this.position.y,
     );
     p.push();
-    p.translate(this.position.x - viewPort.x, this.position.y - viewPort.y);
+    p.translate(this.position.x, this.position.y);
     p.rotate(this.angle.heading() + Math.PI / 2);
     p.fill(255, 0, 0);
     p.stroke(255, 0, 0);
